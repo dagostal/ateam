@@ -27,17 +27,41 @@ contacts.push(contact6)
 contacts.push(contact7)
 contacts.push(contact8)
 
+
+var projects = []
+
+
+
 app.post("/removeContact",function(req,res){
   let contactID = req.body.contactID
   contacts = contacts.filter(contact => contact.id !== contactID)
   res.json({"success":"true",allContacts:venues})
 })
 
-app.post("/newContact",function(req,res){
-  console.log("HIT")
-  console.log(req.body.newContact)
-  let newContactToAdd = req.body.newContact
+app.post("/newProject",function(req,res){
+  console.log("new proj hit")
+  console.log(req.body.newProj)
+  let newProjectReq = req.body.newProj
 
+  let newProject = {
+    role:newContactToAdd.newContactRole,
+    id:Math.floor(Math.random() * Math.floor(100000)),
+    projectName: newProjectReq.projectName,
+    projectClient: newProjectReq.projectClient,
+    projectType: newProjectReq.projectType,
+    position:newProjectReq.position,
+    prep: newProjectReq.prep,
+    shoot: newProjectReq.shoot,
+    wrape: newProjectReq.wrape
+  }
+  projects.push(newProject)
+})
+
+
+
+
+app.post("/newContact",function(req,res){
+  let newContactToAdd = req.body.newContact
 
   let newContact = {
     role:newContactToAdd.newContactRole,
