@@ -30,26 +30,20 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "ContactApp",
-  computed: mapGetters(["allContacts", "helloWorld"]),
+  computed: mapGetters(["allContacts"]),
   components: {
     ContactInfo,
     CreateContactButton,
     CreateContactModal
   },
-  props: ["msg"],
-  mounted() {
-    console.log("contacts mounted!");
-  },
+  mounted() {},
   data() {
     return {};
   },
-  created() {
-    this.fetchContacts();
-  },
+  created() {},
   methods: {
-    ...mapActions(["fetchContacts", "sortContacts"]),
+    ...mapActions(["sortContacts"]),
     sortPriority() {
-      console.log("sorting");
       if (!this.sortedByPriority) {
         this.sortedByPriority = true;
         this.contacts.sort(function(a, b) {

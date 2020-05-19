@@ -1,49 +1,158 @@
 <template>
-  <div class="projects">
-    <div class="project-child">
+  <div class="body">
+    <div v-if="this.showDashboardBool">
       <CreateProjectButton v-on:create-project="createProject" />
       <CreateProjectModal />
     </div>
-    <div class="project-child">This is an projects page</div>
-    <div class="project-child">This is an projects page</div>
+    <div v-if="!this.showDashboardBool">
+      <AddTeamMemberButton v-on:add-member="addMember" />
+      <AddTeamMemberModal v-bind:projID="this.projectID" />
+    </div>
+    <div class="projects">
+      <div v-if="!this.showDashboardBool" class="project-show">
+        <ProjectTable
+          v-on:check-hold="checkHold($event, memberID)"
+          v-on:check-reachout="checkReachout($event,memberID)"
+          v-on:show-dashboard="showDashboard()"
+          v-bind:project="this.projectToDisplay"
+        />
+      </div>
+      <div v-if="this.showDashboardBool" class="project-dash">
+        <div class="project-list">
+          <div v-bind:key="project.id" v-for="project in allProjects">
+            <ProjectInfo
+              v-on:show-project="showProject($event, projectID)"
+              v-bind:project="project"
+            />
+          </div>
+        </div>
+        <div class="project-child"></div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import CreateProjectButton from "./CreateProjectButton.vue";
 import CreateProjectModal from "./CreateProjectModal.vue";
+import ProjectInfo from "./ProjectInfo.vue";
+import ProjectTable from "./ProjectTable.vue";
+import AddTeamMemberButton from "./AddTeamMemberButton.vue";
+import AddTeamMemberModal from "./AddTeamMemberModal.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Projects",
+  data() {
+    return {
+      projectID: "",
+      showDashboardBool: true,
+      memberID: ""
+    };
+  },
+  computed: {
+    ...mapGetters(["allProjects", "projectDash"]),
+    projectToDisplay() {
+      // console.log(this.projectID)
+      return this.allProjects.filter(
+        project => project.id == this.projectID
+      )[0];
+    }
+  },
   components: {
     CreateProjectButton,
-    CreateProjectModal
+    CreateProjectModal,
+    ProjectInfo,
+    ProjectTable,
+    AddTeamMemberButton,
+    AddTeamMemberModal
   },
   methods: {
+    ...mapActions(["addMemberToHold","addMemberToReachOut"]),
     createProject() {
       this.$modal.show("create-project");
+    },
+    addMember() {
+      this.$modal.show("add-member");
+    },
+    showProject(projectIDToShow) {
+      this.projectID = projectIDToShow;
+      // this.projectToDisplay = this.allProjects.filter(project => project.id == projectIDToShow)[0]
+      this.showDashboardBool = !this.showDashboardBool;
+    },
+    showDashboard() {
+      this.showDashboardBool = !this.showDashboardBool;
+    },
+    checkHold(memberID) {
+      let updateInfo = {
+        projectID:this.projectID,
+        memberID:memberID
+      }
+      this.addMemberToHold(updateInfo);
+    },
+    checkReachout(memberID) {
+      let updateInfo = {
+        projectID:this.projectID,
+        memberID:memberID
+      }
+      this.addMemberToReachOut(updateInfo);
     }
   }
 };
 </script>
 
 <style scoped>
+.project-dash {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.project-show {
+  background-color: white;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
 .projects {
   border-style: solid;
   border-width: 1px;
   background-color: #dcdcdc;
-  flex: 1;
-  height: 700px;
+  height: 600px;
   display: flex;
   align-items: center;
-  flex-direction: column;
   justify-content: space-around;
 }
-.project-child {
-  margin: 5px;
+.project-list {
+  flex: 1;
+  background-color: pink;
   border-style: solid;
   border-bottom-width: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.body {
+  background-color: yellow;
+}
+
+.project-child {
+  flex: 4;
+  background-color: yellow;
+  border-style: solid;
+  border-bottom-width: 1px;
+}
+
+.project-container {
   width: 100%;
   height: 100%;
+  background-color: yellow;
+  align-items: center;
+  flex: 1;
 }
 </style>

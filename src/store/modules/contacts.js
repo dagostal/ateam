@@ -6,29 +6,28 @@ const state = {
 };
 
 const getters = {
-  allContacts: state => state.allContacts,
-  helloWorld: () => {
-    return "helloe";
-  }
+  allContacts: state => state.allContacts
 };
+
+// need to check if these reqs are successful..
 
 const actions = {
   async fetchContacts({ commit }) {
     const response = await axios.get(
-      "http://evening-forest-25502.herokuapp.com/venues"
+      "https://infinite-thicket-90693.herokuapp.com/contacts"
     );
     commit("setContacts", response.data);
   },
   async addNewContact({ commit }, newContact) {
     const response = await axios.post(
-      "http://evening-forest-25502.herokuapp.com/newContact",
+      "https://infinite-thicket-90693.herokuapp.com/newContact",
       { newContact: newContact }
     );
     commit("newContact", response.data.allContacts);
   },
   async deleteContact({ commit }, contactID) {
     const response = await axios.post(
-      "http://evening-forest-25502.herokuapp.com/removeContact",
+      "https://infinite-thicket-90693.herokuapp.com/removeContact",
       { contactID: contactID }
     );
     console.log(response);

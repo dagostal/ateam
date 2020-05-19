@@ -1,5 +1,8 @@
 <template>
-  <div class="contact">
+  <div
+    v-bind:class="isSelected ? 'selected' : 'contact'"
+    v-on:click="selectContact(contact.id)"
+  >
     <p class="contact-child">{{ contact.role }}</p>
     <p class="contact-child">{{ contact.name }}</p>
     <p class="contact-child">{{ contact.email }}</p>
@@ -13,8 +16,14 @@
     >
       {{ contact.currentProject }}
     </p>
-    <p class="contact-child">{{ contact.priority }}</p>
-    <p v-on:click="deleteContact(contact.id)" class="contact-child">X</p>
+    <p v-if="!member" class="contact-child">{{ contact.priority }}</p>
+    <p
+      v-if="!member"
+      v-on:click="deleteContact(contact.id)"
+      class="contact-child"
+    >
+      X
+    </p>
   </div>
 </template>
 
@@ -22,11 +31,22 @@
 import { mapActions } from "vuex";
 export default {
   name: "ContactInfo",
-  props: ["contact"],
+  props: ["contact", "member"],
+  data() {
+    return {
+      isSelected: false
+    };
+  },
   methods: {
     ...mapActions(["deleteContact"]),
     markComplete() {
       this.contact.booked = !this.contact.booked;
+    },
+    selectContact(id) {
+      if (this.member) {
+        this.isSelected = !this.isSelected;
+        this.$emit("select-contact", id);
+      }
     }
   }
 };
@@ -37,6 +57,16 @@ export default {
   border-style: solid;
   border-width: 1px;
   background-color: #dcdcdc;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+
+.selected {
+  border-style: solid;
+  border-width: 1px;
+  background-color: green;
   flex: 1;
   display: flex;
   align-items: flex-end;

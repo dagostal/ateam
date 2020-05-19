@@ -1,15 +1,14 @@
 import Vue from "vue";
 import App from "./App.vue";
 import VModal from "vue-js-modal";
-import VCalendar from 'v-calendar';
+import VCalendar from "v-calendar";
 import router from "./router/router.js";
 import store from "./store/store.js";
 
 Vue.use(VModal);
 Vue.use(VCalendar, {
-  componentPrefix: 'vc'
+  componentPrefix: "vc"
 });
-
 
 Vue.config.productionTip = false;
 

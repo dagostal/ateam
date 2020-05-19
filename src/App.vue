@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "App",
   data() {
@@ -17,10 +18,14 @@ export default {
       contactList: []
     };
   },
-  mounted() {
-    console.log("Main App mounted");
+  mounted() {},
+  created() {
+    this.fetchContacts();
+    this.fetchProjects();
   },
-  created() {}
+  methods: {
+    ...mapActions(["fetchContacts", "fetchProjects"])
+  }
 };
 </script>
 
@@ -31,6 +36,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: yellow;
 }
 
 #nav {

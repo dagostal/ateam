@@ -1,12 +1,12 @@
 <template>
   <div>
-    <button v-on:click="$emit('create-project')">Create Project</button>
+    <button v-on:click="$emit('add-member')">Add Team Member</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "CreateProjectButton"
+  name: "AddTeamMemberButton"
 };
 </script>
 
