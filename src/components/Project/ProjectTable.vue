@@ -3,13 +3,7 @@
     <div class="dash-child">
       <h1>{{ project.projectName }}--{{ project.projectClient }}</h1>
     </div>
-    <div class="reachout" v-if="this.showReachout">
-      <div class="reachout-top"><p>Reachout Text Preview:</p></div>
-      <div class="reachout-mid">
-        <textarea> </textarea>
-      </div>
-      <div class="reachout-bottom"><p>Send to People</p></div>
-    </div>
+    <Reachout v-if="this.showReachout" v-bind:project="this.project"/>
     <div v-if="!this.showReachout" class="project-header">
       <div class="project-header-child-role"><p>Role</p></div>
       <div class="project-header-child-holding"><p>Holding</p></div>
@@ -65,9 +59,13 @@
 </template>
 
 <script>
+import Reachout from "./Reachout.vue"
 export default {
   name: "ProjectTable",
   props: ["project"],
+  components:{
+    Reachout
+  },
   data() {
     return {
       showReachout: false
