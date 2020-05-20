@@ -4,7 +4,9 @@
     <div class="reachout-mid">
       <textarea> </textarea>
     </div>
-    <div class="reachout-bottom"><p>Send to {{this.reachOutMembers.length}} People</p></div>
+    <div class="reachout-bottom">
+      <p>Send to {{ this.reachOutMembers.length }} People</p>
+    </div>
   </div>
 </template>
 
@@ -13,21 +15,21 @@
 
 export default {
   name: "Reachout",
-  props:["project"],
+  props: ["project"],
   data() {
     return {
       reachOutMembers: []
-    }
+    };
   },
-  mounted(){
-    this.reachOutMembers = this.project.roles.filter(member => member.reachout == true)
+  mounted() {
+    this.reachOutMembers = this.project.roles.filter(
+      member => member.reachout == true
+    );
   }
 };
 </script>
 
-
 <style scoped>
-
 .reachout {
   flex: 5;
   display: flex;

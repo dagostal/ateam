@@ -29,19 +29,19 @@ const actions = {
     );
     commit("addNewMember", response.data.allProjects);
   },
-  async addMemberToHold({ commit },updateInfo) {
+  async addMemberToHold({ commit }, updateInfo) {
     const response = await axios.post(
       "https://infinite-thicket-90693.herokuapp.com/memberToHold",
-      { updateInfo: updateInfo}
+      { updateInfo: updateInfo }
     );
-    commit("addMemberToHoldCommit",response.data.allProjects);
+    commit("addMemberToHoldCommit", response.data.allProjects);
   },
-  async addMemberToReachOut({ commit },updateInfo) {
+  async addMemberToReachOut({ commit }, updateInfo) {
     const response = await axios.post(
       "https://infinite-thicket-90693.herokuapp.com/memberToReachOut",
-      { updateInfo: updateInfo}
+      { updateInfo: updateInfo }
     );
-    commit("addMemberToReachOutCommit",response.data.allProjects);
+    commit("addMemberToReachOutCommit", response.data.allProjects);
   }
 };
 
@@ -49,8 +49,8 @@ const mutations = {
   setProjects: (state, allProjs) => (state.allProjects = allProjs),
   newProj: (state, newProjs) => (state.allProjects = newProjs),
   addNewMember: (state, allProjs) => (state.allProjects = allProjs),
-  addMemberToHoldCommit: (state,allProjs) => (state.allProjects = allProjs),
-  addMemberToReachOutCommit:(state,allProjs) => (state.allProjects = allProjs)
+  addMemberToHoldCommit: (state, allProjs) => (state.allProjects = allProjs),
+  addMemberToReachOutCommit: (state, allProjs) => (state.allProjects = allProjs)
 };
 
 export default {

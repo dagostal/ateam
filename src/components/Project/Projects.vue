@@ -12,7 +12,7 @@
       <div v-if="!this.showDashboardBool" class="project-show">
         <ProjectTable
           v-on:check-hold="checkHold($event, memberID)"
-          v-on:check-reachout="checkReachout($event,memberID)"
+          v-on:check-reachout="checkReachout($event, memberID)"
           v-on:show-dashboard="showDashboard()"
           v-bind:project="this.projectToDisplay"
         />
@@ -68,7 +68,7 @@ export default {
     AddTeamMemberModal
   },
   methods: {
-    ...mapActions(["addMemberToHold","addMemberToReachOut"]),
+    ...mapActions(["addMemberToHold", "addMemberToReachOut"]),
     createProject() {
       this.$modal.show("create-project");
     },
@@ -85,16 +85,16 @@ export default {
     },
     checkHold(memberID) {
       let updateInfo = {
-        projectID:this.projectID,
-        memberID:memberID
-      }
+        projectID: this.projectID,
+        memberID: memberID
+      };
       this.addMemberToHold(updateInfo);
     },
     checkReachout(memberID) {
       let updateInfo = {
-        projectID:this.projectID,
-        memberID:memberID
-      }
+        projectID: this.projectID,
+        memberID: memberID
+      };
       this.addMemberToReachOut(updateInfo);
     }
   }

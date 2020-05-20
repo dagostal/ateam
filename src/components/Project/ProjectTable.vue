@@ -3,7 +3,7 @@
     <div class="dash-child">
       <h1>{{ project.projectName }}--{{ project.projectClient }}</h1>
     </div>
-    <Reachout v-if="this.showReachout" v-bind:project="this.project"/>
+    <Reachout v-if="this.showReachout" v-bind:project="this.project" />
     <div v-if="!this.showReachout" class="project-header">
       <div class="project-header-child-role"><p>Role</p></div>
       <div class="project-header-child-holding"><p>Holding</p></div>
@@ -21,13 +21,13 @@
         <div
           class="project-header-child"
           v-on:click="$emit('check-hold', role.id)"
-          v-bind:class="{selected:role.hold}"
+          v-bind:class="{ selected: role.hold }"
         ></div>
         <div class="project-header-child"></div>
         <div
           class="project-header-child"
           v-on:click="$emit('check-reachout', role.id)"
-          v-bind:class="{selected:role.reachout}"
+          v-bind:class="{ selected: role.reachout }"
         ></div>
         <div class="project-header-child">{{ role.rate }}</div>
         <div class="project-header-child">{{ role.name }}</div>
@@ -59,11 +59,11 @@
 </template>
 
 <script>
-import Reachout from "./Reachout.vue"
+import Reachout from "./Reachout.vue";
 export default {
   name: "ProjectTable",
   props: ["project"],
-  components:{
+  components: {
     Reachout
   },
   data() {
@@ -80,9 +80,9 @@ export default {
 </script>
 
 <style scoped>
-  .selected {
-    background-color: blue;
-  }
+.selected {
+  background-color: blue;
+}
 .members {
   width: 100%;
   height: 10%;

@@ -7,64 +7,66 @@
     :height="500"
     class="modal"
   >
-      <form v-on:submit.prevent="submitNewProject">
-        <div class="date-container">
-          <div>
-            <p>Prep Date</p>
-            <vc-date-picker
-              placeholder="date"
-              v-model='this.newProject.prepDate'
-              :min-date="new Date()"
-              :attributes="attributes"
-              ref="calendar"
-              >
-            </vc-date-picker>
-          </div>
-          <div>
-            <p>Shoot Dates</p>
-            <vc-date-picker
-              v-model='this.newProject.shootDates'
-              mode='range'
-              :min-date="new Date()"
-              :attributes="attributes"
-              ref="calendar"
-              >
-            </vc-date-picker>
-          </div>
-          <div>
-            <p>Wrape Date</p>
-            <vc-date-picker
-              v-model='this.newProject.wrapeDate'
-              :min-date="new Date()"
-              :attributes="attributes"
-              ref="calendar"
-              >
-            </vc-date-picker>
-          </div>
+    <form v-on:submit.prevent="submitNewProject">
+      <div class="date-container">
+        <div>
+          <p>Prep Date</p>
+          <vc-date-picker
+            placeholder="date"
+            v-model="newProject.prepDate"
+            :min-date="new Date()"
+            ref="calendar"
+          >
+          </vc-date-picker>
         </div>
-        <div class="container">
-          <input v-model.trim="newProject.projectName" placeholder="Project Name" />
-          <input v-model.trim="newProject.projectClient" placeholder="Client" />
+        <div>
+          <p>Shoot Dates</p>
+          <vc-date-picker
+            v-model="newProject.shootDates"
+            mode="range"
+            :min-date="new Date()"
+            ref="calendar"
+          >
+          </vc-date-picker>
         </div>
+        <div>
+          <p>Wrape Date</p>
+          <vc-date-picker
+            v-model="newProject.wrapeDate"
+            :min-date="new Date()"
+            ref="calendar"
+          >
+          </vc-date-picker>
+        </div>
+      </div>
+      <div class="container">
+        <input
+          v-model.trim="newProject.projectName"
+          placeholder="Project Name"
+        />
+        <input v-model.trim="newProject.projectClient" placeholder="Client" />
+      </div>
 
-        <div class="container">
-          <label>Your Position</label>
-          <select v-model="newProject.position">
-            <option>Director</option>
-            <option>Producer</option>
-            <option>ToeMan</option>
-          </select>
+      <div class="container">
+        <label>Your Position</label>
+        <select v-model="newProject.position">
+          <option>Director</option>
+          <option>Producer</option>
+          <option>ToeMan</option>
+        </select>
 
-          <label>Project Type</label>
-          <select v-model.number="newProject.projectType">
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
-            <option>D</option>
-          </select>
-          <button v-bind:disabled="!formIsValid" type="submit">Add New Project</button>
-        </div>
-      </form>
+        <label>Project Type</label>
+        <select v-model.number="newProject.projectType">
+          <option>A</option>
+          <option>B</option>
+          <option>C</option>
+          <option>D</option>
+        </select>
+        <button v-bind:disabled="!formIsValid" type="submit">
+          Add New Project
+        </button>
+      </div>
+    </form>
   </modal>
 </template>
 
@@ -75,9 +77,6 @@ export default {
   name: "CreateProjectModal",
   methods: {
     ...mapActions(["addNewProject"]),
-    calClick: function() {
-      console.log("clickeD!");
-    },
     submitNewProject: function() {
       this.addNewProject(this.newProject);
     }
@@ -86,21 +85,15 @@ export default {
   data() {
     return {
       modalWidth: MODAL_WIDTH,
-      attributes: [
-        {
-          key: "today",
-          dates: new Date()
-        }
-      ],
       newProject: {
         projectName: "",
         projectClient: "",
         projectType: "",
         position: "",
-        prepDate: "Prep Date",
+        prepDate: "",
         shootDates: {
-          start:"",
-          end:""
+          start: "",
+          end: ""
         },
         wrapeDate: ""
       }
@@ -122,19 +115,19 @@ export default {
 .modal {
   display: flex;
 }
-  .date-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex:1;
-  }
-  .container {
-    flex:2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+.date-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex: 1;
+}
+.container {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 form {
   display: flex;
   flex: 1;
