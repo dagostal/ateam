@@ -17,10 +17,9 @@
 
         <label>Role</label>
         <select v-model="newContact.newContactRole">
-          <option>Makeup</option>
-          <option>Sound</option>
-          <option>Lights</option>
-          <option>Food</option>
+          <option>Director</option>
+          <option>Producer</option>
+          <option>ToeMan</option>
         </select>
 
         <label>Priority</label>
