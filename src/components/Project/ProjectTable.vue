@@ -1,7 +1,16 @@
 <template>
   <div class="proj-container">
     <div class="dash-child">
-      <h1>{{ project.projectName }}--{{ project.projectClient }}</h1>
+      <h1>
+        {{ project.projectName }}-{{ project.projectClient }} //
+        {{ project.projectType }}
+      </h1>
+        <p class="date-color">
+          <strong>Prep:</strong>{{ new Date(project.prepDate).toDateString() }} |
+          <strong>Shoot:</strong>{{ new Date(project.shootDates.start).toDateString() }} -
+          {{ new Date(project.shootDates.end).toDateString() }}|
+        <strong>Wrap:</strong>{{ new Date(project.wrapeDate).toDateString() }}
+      </p>
     </div>
     <Reachout v-if="this.showReachout" v-bind:project="this.project" />
     <div v-if="!this.showReachout" class="project-header">
@@ -82,6 +91,9 @@ export default {
 <style scoped>
 .selected {
   background-color: blue;
+}
+.date-color {
+  color: grey;
 }
 .members {
   width: 100%;

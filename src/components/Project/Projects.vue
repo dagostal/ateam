@@ -21,6 +21,9 @@
         <div class="project-list">
           <div v-bind:key="project.id" v-for="project in allProjects">
             <ProjectInfo
+              v-on:mouseover="hover = true"
+              v-on:mouseleave="hover = false"
+              :class="{ mouseOver: hover }"
               v-on:show-project="showProject($event, projectID)"
               v-bind:project="project"
             />
@@ -47,7 +50,8 @@ export default {
     return {
       projectID: "",
       showDashboardBool: true,
-      memberID: ""
+      memberID: "",
+      hover: false
     };
   },
   computed: {
@@ -102,6 +106,9 @@ export default {
 </script>
 
 <style scoped>
+.mouseOver {
+  background-color: green;
+}
 .project-dash {
   width: 100%;
   height: 100%;
@@ -119,33 +126,23 @@ export default {
 }
 
 .projects {
-  border-style: solid;
-  border-width: 1px;
   background-color: #dcdcdc;
   height: 600px;
   display: flex;
   align-items: center;
   justify-content: space-around;
+  margin-top:20px
 }
 .project-list {
   flex: 1;
-  background-color: pink;
-  border-style: solid;
-  border-bottom-width: 1px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.body {
-  background-color: yellow;
-}
 
 .project-child {
   flex: 4;
-  background-color: yellow;
-  border-style: solid;
-  border-bottom-width: 1px;
 }
 
 .project-container {

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <button v-on:click="$emit('create-project')">Create Project</button>
+  <div class="create-proj-button">
+    <button v-on:click="$emit('create-project')"><u>+New Project</u></button>
   </div>
 </template>
 
@@ -11,8 +11,15 @@ export default {
 </script>
 
 <style scoped>
-.button {
+button {
   margin-left: 20%;
   margin-right: 20%;
+  border-radius: 8px;
+  background-color: white;
+  padding:20px;
+  width:20%;
+  font-size: 20px;
+  color:blue
+
 }
 </style>
