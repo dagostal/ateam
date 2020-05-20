@@ -21,9 +21,10 @@
             </vc-date-picker>
           </div>
           <div>
-            <p>Shoot Date</p>
+            <p>Shoot Dates</p>
             <vc-date-picker
-              v-model='this.newProject.shootDate'
+              v-model='this.newProject.shootDates'
+              mode='range'
               :min-date="new Date()"
               :attributes="attributes"
               ref="calendar"
@@ -97,7 +98,10 @@ export default {
         projectType: "",
         position: "",
         prepDate: "Prep Date",
-        shootDate: "",
+        shootDates: {
+          start:"",
+          end:""
+        },
         wrapeDate: ""
       }
     };
