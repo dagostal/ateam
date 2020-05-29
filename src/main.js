@@ -5,7 +5,10 @@ import VCalendar from "v-calendar";
 import DatePicker from "v-calendar/lib/components/date-picker.umd";
 import router from "./router/router.js";
 import store from "./store/store.js";
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
 
+Vue.use(ElementUI);
 Vue.use(VModal);
 Vue.use(VCalendar, {
   componentPrefix: "vc"

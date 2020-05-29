@@ -4,63 +4,67 @@
     transition="pop-out"
     :width="modalWidth"
     :focus-trap="true"
-    :height="400"
+    :height="600"
   >
-    <div>
-      <form v-on:submit.prevent="submitNewContact">
-        <input v-model.trim="newContact.newContactName" placeholder="Name" />
-        <input v-model.trim="newContact.newContactEmail" placeholder="Email" />
-        <input
-          v-model.trim="newContact.newContactPhoneNumber"
-          placeholder="Phone Number"
-        />
-
-        <label>Role</label>
-        <select v-model="newContact.newContactRole">
-          <option>Director</option>
-          <option>Producer</option>
-          <option>ToeMan</option>
-        </select>
-
-        <label>Priority</label>
-        <select v-model.number="newContact.newContactPriority">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-        </select>
-        <button v-bind:disabled="!formIsValid" type="submit">
-          Add New Contact
-        </button>
-      </form>
-    </div>
+    <el-form ref="form" :model="newContact" label-width="120px">
+      <el-form-item label="Name">
+        <el-input v-model="newContact.name"></el-input>
+      </el-form-item>
+      <el-form-item label="Email">
+        <el-input v-model="newContact.email"></el-input>
+      </el-form-item>
+      <el-form-item label="Phone Number">
+        <el-input v-model="newContact.phoneNumber"></el-input>
+      </el-form-item>
+      <el-form-item label="Address">
+        <el-input v-model="newContact.address"></el-input>
+      </el-form-item>
+      <el-form-item label="Role">
+        <el-select v-model="newContact.role" placeholder="contact's role">
+          <el-option label="Toeman" value="toeman"></el-option>
+          <el-option label="Makeup" value="makeup"></el-option>
+          <el-option label="Production" value="production"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-input-number
+          v-model="newContact.priority"
+          :min="1"
+          :max="10"
+        ></el-input-number>
+      </el-form-item>
+      <el-form-item label="Notes">
+        <el-input type="textarea" v-model="newContact.notes"></el-input>
+      </el-form-item>
+      <el-button type="primary" @click="onSubmit">Create Contact</el-button>
+    </el-form>
   </modal>
 </template>
 
 <script>
 import { mapActions } from "vuex";
 
-const MODAL_WIDTH = 656;
+const MODAL_WIDTH = 1000;
 export default {
   name: "CreateContactModal",
   methods: {
     ...mapActions(["addNewContact"]),
-    submitNewContact() {
+    onSubmit() {
+      console.log("subbmitting..", this.newContact);
       this.addNewContact(this.newContact);
-    },
-    beforeClose() {
-      console.log("closing");
     }
   },
   data() {
     return {
       modalWidth: MODAL_WIDTH,
       newContact: {
-        newContactName: "",
-        newContactEmail: "",
-        newContactPhoneNumber: "",
-        newContactRole: "",
-        newContactPriority: 0
+        name: "",
+        email: "",
+        phoneNumber: "",
+        role: "",
+        priority: 0,
+        address: "",
+        notes: ""
       }
     };
   },
@@ -77,15 +81,14 @@ export default {
 </script>
 
 <style scoped>
-form {
+.el-form {
   display: flex;
-  flex: 1;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-
-input {
-  margin-top: 30px;
+.el-form-item {
+  width: 60%;
+  padding: 5px;
 }
 </style>

@@ -17,13 +17,14 @@
       {{ contact.currentProject }}
     </p>
     <p v-if="!member" class="contact-child">{{ contact.priority }}</p>
-    <p
+    <el-button
+      class="contact-child"
       v-if="!member"
       v-on:click="deleteContact(contact.id)"
-      class="contact-child"
-    >
-      X
-    </p>
+      type="primary"
+      icon="el-icon-delete"
+    ></el-button>
+    <el-button type="primary" icon="el-icon-edit"></el-button>
   </div>
 </template>
 

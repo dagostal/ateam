@@ -5,15 +5,17 @@
         {{ project.projectName }}-{{ project.projectClient }} //
         {{ project.projectType }}
       </h1>
-        <p class="date-color">
-          <strong>Prep:</strong>{{ new Date(project.prepDate).toDateString() }} |
-          <strong>Shoot:</strong>{{ new Date(project.shootDates.start).toDateString() }} -
-          {{ new Date(project.shootDates.end).toDateString() }}|
+      <p class="date-color">
+        <strong>Prep:</strong>{{ new Date(project.prepDate).toDateString() }} |
+        <strong>Shoot:</strong
+        >{{ new Date(project.shootDates.start).toDateString() }} -
+        {{ new Date(project.shootDates.end).toDateString() }}|
         <strong>Wrap:</strong>{{ new Date(project.wrapeDate).toDateString() }}
       </p>
     </div>
     <Reachout v-if="this.showReachout" v-bind:project="this.project" />
-    <div v-if="!this.showReachout" class="project-header">
+    <TeamTree v-if="this.showTeamTree" v-bind:project="this.project" />
+    <div v-if="!this.showReachout && !this.showTeamTree" class="project-header">
       <div class="project-header-child-role"><p>Role</p></div>
       <div class="project-header-child-holding"><p>Holding</p></div>
       <div class="project-header-child-sent"><p>Sent</p></div>
@@ -24,7 +26,7 @@
       <div class="project-header-child-phone"><p>Phone</p></div>
       <div class="project-header-child-priority"><p>Priority</p></div>
     </div>
-    <div v-if="!this.showReachout" class="dash-table">
+    <div v-if="!this.showReachout && !this.showTeamTree" class="dash-table">
       <div class="members" v-bind:key="role.id" v-for="role in project.roles">
         <div class="project-header-child">{{ role.role }}</div>
         <div
@@ -60,6 +62,9 @@
       >
         Project Memebers
       </p>
+      <p v-on:click="showTree()" class="back-button">
+        Team Tree
+      </p>
       <p v-on:click="$emit('show-dashboard')" class="back-button">
         Project Dashboard
       </p>
@@ -69,20 +74,28 @@
 
 <script>
 import Reachout from "./Reachout.vue";
+import TeamTree from "./TeamTree.vue";
 export default {
   name: "ProjectTable",
   props: ["project"],
   components: {
-    Reachout
+    Reachout,
+    TeamTree
   },
   data() {
     return {
-      showReachout: false
+      showReachout: false,
+      showTeamTree: false
     };
   },
   methods: {
+    showTree() {
+      this.showTeamTree = !this.showTeamTree;
+      this.showReachout = false;
+    },
     showReachOut() {
       this.showReachout = !this.showReachout;
+      this.showTeamTree = false;
     }
   }
 };

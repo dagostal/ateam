@@ -131,7 +131,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-top:20px
+  margin-top: 20px;
 }
 .project-list {
   flex: 1;
@@ -139,7 +139,6 @@ export default {
   justify-content: center;
   align-items: center;
 }
-
 
 .project-child {
   flex: 4;

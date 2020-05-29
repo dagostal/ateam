@@ -16,10 +16,9 @@ button {
   margin-right: 20%;
   border-radius: 8px;
   background-color: white;
-  padding:20px;
-  width:20%;
+  padding: 20px;
+  width: 20%;
   font-size: 20px;
-  color:blue
-
+  color: blue;
 }
 </style>

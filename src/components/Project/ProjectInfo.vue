@@ -27,7 +27,7 @@ export default {
 
 <style scoped>
 .color {
-  color:grey
+  color: grey;
 }
 .project {
   background-color: #dcdcdc;
