@@ -1,6 +1,11 @@
 <template>
   <div>
+    <!-- modals -->
     <CreateContactModal v-on:close="closeModal()" />
+    <EditContactModal
+      v-on:close="closeModal()"
+      v-bind:contact="this.editingContact"
+    />
 
     <el-container style="height: 500px; border: 1px solid #eee">
       <!-- side-pannel -->
@@ -15,13 +20,6 @@
               <el-menu-item index="1-1">Option 1</el-menu-item>
               <el-menu-item index="1-2">Option 2</el-menu-item>
             </el-menu-item-group>
-            <el-menu-item-group title="Group 2">
-              <el-menu-item index="1-3">Option 3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
-              <template slot="title">Option4</template>
-              <el-menu-item index="1-4-1">Option 4-1</el-menu-item>
-            </el-submenu>
           </el-submenu>
         </el-menu>
       </el-aside>
@@ -60,19 +58,19 @@
             <el-table-column
               prop="role"
               label="Role"
-              width="130"
+              width="110"
               sortable
             ></el-table-column>
             <el-table-column
               prop="name"
               label="Name"
               sortable
-              width="150"
+              width="110"
             ></el-table-column>
             <el-table-column
               prop="email"
               label="Email"
-              width="270"
+              width="230"
             ></el-table-column>
             <el-table-column
               prop="phoneNumber"
@@ -82,7 +80,7 @@
             <el-table-column
               prop="address"
               label="Address"
-              width="150"
+              width="100"
             ></el-table-column>
             <el-table-column
               prop="priority"
@@ -90,9 +88,16 @@
               width="100"
               sortable
             ></el-table-column>
-            <el-table-column width="80"
-              ><el-button type="primary" icon="el-icon-edit"></el-button
-            ></el-table-column>
+            <el-table-column width="80">
+              <template scope="scope">
+                <el-button
+                  v-on:click="editContact(scope.row.id)"
+                  type="primary"
+                  icon="el-icon-edit"
+                >
+                </el-button>
+              </template>
+            </el-table-column>
             <el-table-column width="80">
               <template scope="scope">
                 <el-button
@@ -111,6 +116,7 @@
 
 <script>
 import CreateContactModal from "./CreateContactModal.vue";
+import EditContactModal from "./EditContactModal.vue";
 import { mapActions } from "vuex";
 
 export default {
@@ -121,12 +127,14 @@ export default {
     }
   },
   components: {
-    CreateContactModal
+    CreateContactModal,
+    EditContactModal
   },
   mounted() {},
   data() {
     return {
-      tableData: []
+      tableData: [],
+      editingContact: {}
     };
   },
   created() {},
@@ -138,8 +146,11 @@ export default {
     createContact() {
       this.$modal.show("create-contact");
     },
-    updateContactList(newContactList) {
-      this.contacts = newContactList;
+    editContact(id) {
+      this.editingContact = this.$store.getters.allContacts.filter(
+        contact => contact.id === id
+      )[0];
+      this.$modal.show("edit-contact");
     }
   }
 };

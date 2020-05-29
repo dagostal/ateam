@@ -40,29 +40,43 @@
         </div>
       </div>
       <div class="container">
-        <el-input placeholder="Project Name" v-model.trim="newProject.projectName"></el-input>
-        <el-input placeholder="Client" v-model.trim="newProject.projectClient"></el-input>
+        <el-input
+          placeholder="Project Name"
+          v-model.trim="newProject.projectName"
+        ></el-input>
+        <el-input
+          placeholder="Client"
+          v-model.trim="newProject.projectClient"
+        ></el-input>
         <template>
           <el-select v-model="newProject.position" placeholder="Your Position">
             <el-option
               v-for="position in positions"
               :key="position.value"
               :label="position.label"
-              :value="position.value">
+              :value="position.value"
+            >
             </el-option>
           </el-select>
         </template>
         <template>
-          <el-select style="margin:10px" v-model.number="newProject.projectType" placeholder="Project Type">
+          <el-select
+            style="margin:10px"
+            v-model.number="newProject.projectType"
+            placeholder="Project Type"
+          >
             <el-option
               v-for="project in projectTypes"
               :key="project.value"
               :label="project.label"
-              :value="project.value">
+              :value="project.value"
+            >
             </el-option>
           </el-select>
         </template>
-        <el-button v-bind:disabled="!formIsValid" @click="submitNewProject()">Add New Project</el-button>
+        <el-button v-bind:disabled="!formIsValid" @click="submitNewProject()"
+          >Add New Project</el-button
+        >
       </div>
     </form>
   </modal>
@@ -77,34 +91,40 @@ export default {
     ...mapActions(["addNewProject"]),
     submitNewProject: function() {
       this.addNewProject(this.newProject);
-      this.$emit('close')
+      this.$emit("close");
     }
   },
   mounted() {},
   data() {
     return {
-      positions: [{
-          value: 'Producer',
-          label: 'Producer'
-        }, {
-          value: 'Director',
-          label: 'Director'
+      positions: [
+        {
+          value: "Producer",
+          label: "Producer"
         },
         {
-          value: 'ToeMan',
-          label: 'ToeMan'
-        }],
-        projectTypes: [{
-            value: 'A',
-            label: 'A'
-          }, {
-            value: 'B',
-            label: 'B'
-          },
-          {
-            value: 'C',
-            label: 'C'
-          }],
+          value: "Director",
+          label: "Director"
+        },
+        {
+          value: "ToeMan",
+          label: "ToeMan"
+        }
+      ],
+      projectTypes: [
+        {
+          value: "A",
+          label: "A"
+        },
+        {
+          value: "B",
+          label: "B"
+        },
+        {
+          value: "C",
+          label: "C"
+        }
+      ],
       modalWidth: MODAL_WIDTH,
       newProject: {
         projectName: "",
@@ -137,7 +157,7 @@ export default {
   display: flex;
 }
 .el-input {
-  margin:10px
+  margin: 10px;
 }
 .date-container {
   display: flex;

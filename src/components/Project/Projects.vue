@@ -1,15 +1,23 @@
 <template>
-  <div class="body">
-    <div v-if="this.showDashboardBool && !this.showProjectTree && !this.showReachOut">
-      <el-button round type="primary" v-on:click="createProject()">Create Project</el-button>
+  <div class="container">
+    <div
+      class="top"
+      v-if="
+        this.showDashboardBool &&
+          !this.showProjectTree &&
+          !this.showReachOutBool
+      "
+    >
+      <el-button round type="primary" v-on:click="createProject()"
+        >Create Project</el-button
+      >
       <CreateProjectModal v-on:close="closeModal()" />
     </div>
-    <div v-if="!this.showDashboardBool">
-      <!-- <el-button type="primary" v-on:click="addMember()">Add Team Member</el-button>
-      <AddTeamMemberModal v-bind:projID="this.projectID" /> -->
-    </div>
-    <div class="projects">
-      <div v-if="!this.showDashboardBool && this.showReachOut" class="project-show">
+    <div class="main">
+      <div
+        v-if="!this.showDashboardBool && !this.showReachOutBool"
+        class="project-show"
+      >
         <ProjectTable2
           v-on:check-hold="checkHold($event, memberID)"
           v-on:show-dashboard="showDashboard()"
@@ -24,7 +32,14 @@
       <div class="project-show" v-if="this.showProjectReachout">
         <ProjectReachOut v-bind:project="this.project" />
       </div>
-      <div v-if="this.showDashboardBool && !this.showProjectTree && !this.showProjectReachout" class="project-dash">
+      <div
+        v-if="
+          this.showDashboardBool &&
+            !this.showProjectTree &&
+            !this.showProjectReachout
+        "
+        class="project-dash"
+      >
         <div class="project-list">
           <div v-bind:key="project.id" v-for="project in allProjects">
             <ProjectInfo
@@ -36,9 +51,7 @@
             />
           </div>
         </div>
-        <div class="project-child">
-
-        </div>
+        <div class="project-child"></div>
       </div>
     </div>
   </div>
@@ -58,9 +71,10 @@ export default {
   data() {
     return {
       projectID: "",
-      showProjectTree:false,
-      showProjectReachout:false,
+      showProjectTree: false,
+      showProjectReachout: false,
       showDashboardBool: true,
+      showReachOutBool: false,
       memberID: "",
       hover: false
     };
@@ -91,9 +105,9 @@ export default {
     addMember() {
       this.$modal.show("add-member");
     },
-    showTree(){
-      this.showDashboardBool = true
-      this.showProjectTree = true
+    showTree() {
+      this.showDashboardBool = true;
+      this.showProjectTree = true;
     },
     showProject(projectIDToShow) {
       this.projectID = projectIDToShow;
@@ -101,10 +115,9 @@ export default {
       this.showDashboardBool = !this.showDashboardBool;
     },
     showReachOut() {
-      console.log("here")
-      this.showDashboardBool = true
-      this.showProjectTree = false
-      this.showProjectReachout = true
+      this.showDashboardBool = true;
+      this.showProjectTree = false;
+      this.showProjectReachout = true;
     },
     showDashboard() {
       this.showDashboardBool = !this.showDashboardBool;
@@ -114,49 +127,15 @@ export default {
 </script>
 
 <style scoped>
-.mouseOver {
-  background-color: green;
-}
-.project-dash {
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  flex: 1;
+.container {
   display: flex;
   flex-direction: column;
-}
-.project-show {
-  background-color: white;
-  flex: 1;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-}
-
-.projects {
-  background-color: #dcdcdc;
-  height: 600px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-top: 20px;
-}
-.project-list {
-  flex: 1;
-  display: flex;
-  justify-content: center;
   align-items: center;
 }
-
-.project-child {
-  flex: 4;
+.top {
+  width: 97%;
 }
-
-.project-container {
-  width: 100%;
-  height: 100%;
-  background-color: yellow;
-  align-items: center;
-  flex: 1;
+.main {
+  width: 97%;
 }
 </style>
