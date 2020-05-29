@@ -159,7 +159,4 @@ export default {
 .el-aside {
   color: #333;
 }
-.alex-button {
-  color: "red";
-}
 </style>

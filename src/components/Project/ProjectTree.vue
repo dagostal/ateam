@@ -19,7 +19,7 @@
 // @ is an alias to /src
 
 export default {
-  name: "TeamTree",
+  name: "ProjectTree",
   props: ["project"],
   data() {
     return {

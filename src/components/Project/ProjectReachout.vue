@@ -14,7 +14,7 @@
 // @ is an alias to /src
 
 export default {
-  name: "Reachout",
+  name: "ProjectReachout",
   props: ["project"],
   data() {
     return {

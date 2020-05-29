@@ -5,19 +5,26 @@
       <CreateProjectModal v-on:close="closeModal()" />
     </div>
     <div v-if="!this.showDashboardBool">
-      <AddTeamMemberButton v-on:add-member="addMember" />
+      <el-button type="primary" v-on:click="addMember()">Add Team Member</el-button>
       <AddTeamMemberModal v-bind:projID="this.projectID" />
     </div>
     <div class="projects">
-      <div v-if="!this.showDashboardBool" class="project-show">
-        <ProjectTable
+      <div v-if="!this.showDashboardBool && this.showReachOut" class="project-show">
+        <ProjectTable2
           v-on:check-hold="checkHold($event, memberID)"
-          v-on:check-reachout="checkReachout($event, memberID)"
           v-on:show-dashboard="showDashboard()"
+          v-on:project-tree="showTree()"
+          v-on:project-reachout="showReachOut()"
           v-bind:project="this.projectToDisplay"
         />
       </div>
-      <div v-if="this.showDashboardBool" class="project-dash">
+      <div class="project-show" v-if="this.showProjectTree">
+        <ProjectTree />
+      </div>
+      <div class="project-show" v-if="this.showProjectReachout">
+        <ProjectReachOut v-bind:project="this.project" />
+      </div>
+      <div v-if="this.showDashboardBool && !this.showProjectTree && !this.showProjectReachout" class="project-dash">
         <div class="project-list">
           <div v-bind:key="project.id" v-for="project in allProjects">
             <ProjectInfo
@@ -29,7 +36,9 @@
             />
           </div>
         </div>
-        <div class="project-child"></div>
+        <div class="project-child">
+
+        </div>
       </div>
     </div>
   </div>
@@ -38,16 +47,19 @@
 <script>
 import CreateProjectModal from "./CreateProjectModal.vue";
 import ProjectInfo from "./ProjectInfo.vue";
-import ProjectTable from "./ProjectTable.vue";
-import AddTeamMemberButton from "./AddTeamMemberButton.vue";
+import ProjectTable2 from "./ProjectTable2.vue";
+import ProjectTree from "./ProjectTree.vue";
+import ProjectReachOut from "./ProjectReachout.vue";
 import AddTeamMemberModal from "./AddTeamMemberModal.vue";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Projects",
   data() {
     return {
       projectID: "",
+      showProjectTree:false,
+      showProjectReachout:false,
       showDashboardBool: true,
       memberID: "",
       hover: false
@@ -65,12 +77,12 @@ export default {
   components: {
     CreateProjectModal,
     ProjectInfo,
-    ProjectTable,
-    AddTeamMemberButton,
-    AddTeamMemberModal
+    ProjectTable2,
+    ProjectTree,
+    AddTeamMemberModal,
+    ProjectReachOut
   },
   methods: {
-    ...mapActions(["addMemberToHold", "addMemberToReachOut"]),
     closeModal() {
       this.$modal.hide("create-project");
     },
@@ -80,27 +92,23 @@ export default {
     addMember() {
       this.$modal.show("add-member");
     },
+    showTree(){
+      this.showDashboardBool = true
+      this.showProjectTree = true
+    },
     showProject(projectIDToShow) {
       this.projectID = projectIDToShow;
       // this.projectToDisplay = this.allProjects.filter(project => project.id == projectIDToShow)[0]
       this.showDashboardBool = !this.showDashboardBool;
     },
+    showReachOut() {
+      console.log("here")
+      this.showDashboardBool = true
+      this.showProjectTree = false
+      this.showProjectReachout = true
+    },
     showDashboard() {
       this.showDashboardBool = !this.showDashboardBool;
-    },
-    checkHold(memberID) {
-      let updateInfo = {
-        projectID: this.projectID,
-        memberID: memberID
-      };
-      this.addMemberToHold(updateInfo);
-    },
-    checkReachout(memberID) {
-      let updateInfo = {
-        projectID: this.projectID,
-        memberID: memberID
-      };
-      this.addMemberToReachOut(updateInfo);
     }
   }
 };
