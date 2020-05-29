@@ -33,9 +33,6 @@
         <div
           style="display:flex;flex:1; align-items:center;justify-content:flex-start;margin-left:40px"
         >
-          <el-button type="primary" v-on:click="createContact()" round
-            >Create Contact</el-button
-          >
         </div>
         <div
           style="display:flex;flex:1; align-items:center;justify-content:flex-end;margin-right:40px"
