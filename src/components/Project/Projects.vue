@@ -1,12 +1,12 @@
 <template>
   <div class="body">
-    <div v-if="this.showDashboardBool">
+    <div v-if="this.showDashboardBool && !this.showProjectTree && !this.showReachOut">
       <el-button round type="primary" v-on:click="createProject()">Create Project</el-button>
       <CreateProjectModal v-on:close="closeModal()" />
     </div>
     <div v-if="!this.showDashboardBool">
-      <el-button type="primary" v-on:click="addMember()">Add Team Member</el-button>
-      <AddTeamMemberModal v-bind:projID="this.projectID" />
+      <!-- <el-button type="primary" v-on:click="addMember()">Add Team Member</el-button>
+      <AddTeamMemberModal v-bind:projID="this.projectID" /> -->
     </div>
     <div class="projects">
       <div v-if="!this.showDashboardBool && this.showReachOut" class="project-show">
@@ -50,7 +50,7 @@ import ProjectInfo from "./ProjectInfo.vue";
 import ProjectTable2 from "./ProjectTable2.vue";
 import ProjectTree from "./ProjectTree.vue";
 import ProjectReachOut from "./ProjectReachout.vue";
-import AddTeamMemberModal from "./AddTeamMemberModal.vue";
+// import AddTeamMemberModal from "./AddTeamMemberModal.vue";
 import { mapGetters } from "vuex";
 
 export default {
@@ -79,7 +79,6 @@ export default {
     ProjectInfo,
     ProjectTable2,
     ProjectTree,
-    AddTeamMemberModal,
     ProjectReachOut
   },
   methods: {
