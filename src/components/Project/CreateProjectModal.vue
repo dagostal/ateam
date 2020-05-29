@@ -23,7 +23,7 @@
           <p>Shoot Dates</p>
           <vc-date-picker
             v-model="newProject.shootDates"
-            mode="range"
+            mode="multiple"
             :min-date="new Date()"
             ref="calendar"
           >
@@ -40,31 +40,29 @@
         </div>
       </div>
       <div class="container">
-        <input
-          v-model.trim="newProject.projectName"
-          placeholder="Project Name"
-        />
-        <input v-model.trim="newProject.projectClient" placeholder="Client" />
-      </div>
-
-      <div class="container">
-        <label>Your Position</label>
-        <select v-model="newProject.position">
-          <option>Director</option>
-          <option>Producer</option>
-          <option>ToeMan</option>
-        </select>
-
-        <label>Project Type</label>
-        <select v-model.number="newProject.projectType">
-          <option>A</option>
-          <option>B</option>
-          <option>C</option>
-          <option>D</option>
-        </select>
-        <button v-bind:disabled="!formIsValid" type="submit">
-          Add New Project
-        </button>
+        <el-input placeholder="Project Name" v-model.trim="newProject.projectName"></el-input>
+        <el-input placeholder="Client" v-model.trim="newProject.projectClient"></el-input>
+        <template>
+          <el-select v-model="newProject.position" placeholder="Your Position">
+            <el-option
+              v-for="position in positions"
+              :key="position.value"
+              :label="position.label"
+              :value="position.value">
+            </el-option>
+          </el-select>
+        </template>
+        <template>
+          <el-select style="margin:10px" v-model.number="newProject.projectType" placeholder="Project Type">
+            <el-option
+              v-for="project in projectTypes"
+              :key="project.value"
+              :label="project.label"
+              :value="project.value">
+            </el-option>
+          </el-select>
+        </template>
+        <el-button v-bind:disabled="!formIsValid" @click="submitNewProject()">Add New Project</el-button>
       </div>
     </form>
   </modal>
@@ -79,11 +77,34 @@ export default {
     ...mapActions(["addNewProject"]),
     submitNewProject: function() {
       this.addNewProject(this.newProject);
+      this.$emit('close')
     }
   },
   mounted() {},
   data() {
     return {
+      positions: [{
+          value: 'Producer',
+          label: 'Producer'
+        }, {
+          value: 'Director',
+          label: 'Director'
+        },
+        {
+          value: 'ToeMan',
+          label: 'ToeMan'
+        }],
+        projectTypes: [{
+            value: 'A',
+            label: 'A'
+          }, {
+            value: 'B',
+            label: 'B'
+          },
+          {
+            value: 'C',
+            label: 'C'
+          }],
       modalWidth: MODAL_WIDTH,
       newProject: {
         projectName: "",
@@ -114,6 +135,9 @@ export default {
 <style scoped>
 .modal {
   display: flex;
+}
+.el-input {
+  margin:10px
 }
 .date-container {
   display: flex;

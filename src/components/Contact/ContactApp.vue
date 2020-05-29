@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CreateContactModal v-on:update-contacts="updateContactList" />
+    <CreateContactModal v-on:close="closeModal()" />
 
     <el-container style="height: 500px; border: 1px solid #eee">
       <!-- side-pannel -->
@@ -132,6 +132,9 @@ export default {
   created() {},
   methods: {
     ...mapActions(["sortContacts", "deleteContact"]),
+    closeModal() {
+      this.$modal.hide("create-contact");
+    },
     createContact() {
       this.$modal.show("create-contact");
     },

@@ -1,8 +1,8 @@
 <template>
   <div class="body">
     <div v-if="this.showDashboardBool">
-      <CreateProjectButton v-on:create-project="createProject" />
-      <CreateProjectModal />
+      <el-button round type="primary" v-on:click="createProject()">Create Project</el-button>
+      <CreateProjectModal v-on:close="closeModal()" />
     </div>
     <div v-if="!this.showDashboardBool">
       <AddTeamMemberButton v-on:add-member="addMember" />
@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import CreateProjectButton from "./CreateProjectButton.vue";
 import CreateProjectModal from "./CreateProjectModal.vue";
 import ProjectInfo from "./ProjectInfo.vue";
 import ProjectTable from "./ProjectTable.vue";
@@ -64,7 +63,6 @@ export default {
     }
   },
   components: {
-    CreateProjectButton,
     CreateProjectModal,
     ProjectInfo,
     ProjectTable,
@@ -73,6 +71,9 @@ export default {
   },
   methods: {
     ...mapActions(["addMemberToHold", "addMemberToReachOut"]),
+    closeModal() {
+      this.$modal.hide("create-project");
+    },
     createProject() {
       this.$modal.show("create-project");
     },

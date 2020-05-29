@@ -26,7 +26,7 @@
           <el-option label="Production" value="production"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item>
+      <el-form-item label="Priority">
         <el-input-number
           v-model="newContact.priority"
           :min="1"
@@ -50,8 +50,8 @@ export default {
   methods: {
     ...mapActions(["addNewContact"]),
     onSubmit() {
-      console.log("subbmitting..", this.newContact);
       this.addNewContact(this.newContact);
+      this.$emit('close')
     }
   },
   data() {
