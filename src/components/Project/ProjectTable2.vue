@@ -53,7 +53,7 @@
       <el-main>
         <el-table
           :default-sort="{ prop: 'priority', order: 'descending' }"
-          :data="tableData"
+          :data="memberData"
         >
           <el-table-column
             prop="role"
@@ -66,12 +66,24 @@
           <el-table-column label="Reach Out" width="100">
             <template scope="scope">
               <el-button
+                v-if="scope.row.reachout"
+                type="primary"
+                v-on:click="reachOut(scope.row.id)"
+                icon="el-icon-check"
+              ></el-button>
+              <el-button
+                v-if="!scope.row.reachout"
                 type="primary"
                 v-on:click="reachOut(scope.row.id)"
                 icon="el-icon"
               ></el-button>
             </template>
           </el-table-column>
+          <el-table-column
+            prop="rate"
+            label="Rate"
+            width="75"
+          ></el-table-column>
           <el-table-column
             prop="name"
             label="Name"
@@ -81,12 +93,12 @@
           <el-table-column
             prop="email"
             label="Email"
-            width="210"
+            width="200"
           ></el-table-column>
           <el-table-column
             prop="phoneNumber"
             label="Number"
-            width="130"
+            width="120"
           ></el-table-column>
           <el-table-column
             prop="priority"
@@ -109,53 +121,34 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "ProjectTable2",
-  props: ["project"],
+  props: ["projectID"],
   methods: {
-    ...mapActions(["addMemberToReachOut"]),
+    ...mapActions(["addMemberToReachOut","mapGetters"]),
     reachOut(id) {
       let updateInfo = {
-        projectID: this.project.id,
+        projectID: this.projectID,
         memberID: id
       };
       this.addMemberToReachOut(updateInfo);
     }
+    //i need to keep doing this function because the data passed from props is not reactive..
   },
-  data() {
-    return {
-      tableData: [
-        {
-          role: "Location Manager",
-          id: 1234,
-          name: "alex",
-          email: "thebigtoeman77@gmail.com",
-          phoneNumber: "631.766.9998",
-          projects: "asdfasdf",
-          priority: 1,
-          currentProject: "-",
-          booked: false,
-          pending: true,
-          rate: "100"
-        },
-        {
-          role: "Poduction Designer",
-          id: 12311111019,
-          name: "jason",
-          email: "jason@gmail.com",
-          phoneNumber: "631.763.9998",
-          projects: "asdfasdf",
-          priority: 1,
-          currentProject: "-",
-          booked: false,
-          pending: true,
-          rate: "25"
-        }
-      ]
-    };
-  },
-  created() {}
+  computed: {
+    ...mapGetters(["allProjects"]),
+    memberData() {
+      return this.allProjects.filter(
+        project => project.id == this.projectID
+      )[0].roles;
+    },
+    project() {
+      return this.allProjects.filter(
+        project => project.id == this.projectID
+      )[0]
+    }
+  }
 };
 </script>
 

@@ -22,7 +22,7 @@
         <div>
           <p>Shoot Dates</p>
           <vc-date-picker
-            v-model="newProject.shootDates"
+            v-model="newProject.shootDate"
             mode="multiple"
             :min-date="new Date()"
             ref="calendar"
@@ -32,7 +32,7 @@
         <div>
           <p>Wrape Date</p>
           <vc-date-picker
-            v-model="newProject.wrapeDate"
+            v-model="newProject.wrapDate"
             :min-date="new Date()"
             ref="calendar"
           >
@@ -42,11 +42,11 @@
       <div class="container">
         <el-input
           placeholder="Project Name"
-          v-model.trim="newProject.projectName"
+          v-model.trim="newProject.name"
         ></el-input>
         <el-input
           placeholder="Client"
-          v-model.trim="newProject.projectClient"
+          v-model.trim="newProject.client"
         ></el-input>
         <template>
           <el-select v-model="newProject.position" placeholder="Your Position">
@@ -62,7 +62,7 @@
         <template>
           <el-select
             style="margin:10px"
-            v-model.number="newProject.projectType"
+            v-model.number="newProject.projType"
             placeholder="Project Type"
           >
             <el-option
@@ -127,16 +127,16 @@ export default {
       ],
       modalWidth: MODAL_WIDTH,
       newProject: {
-        projectName: "",
-        projectClient: "",
-        projectType: "",
+        name: "",
+        client: "",
+        projType: "",
         position: "",
         prepDate: "",
-        shootDates: {
+        shootDate: {
           start: "",
           end: ""
         },
-        wrapeDate: ""
+        wrapDate: ""
       }
     };
   },

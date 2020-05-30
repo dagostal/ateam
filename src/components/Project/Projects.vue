@@ -8,7 +8,7 @@
           !this.showReachOutBool
       "
     >
-      <el-button round type="primary" v-on:click="createProject()"
+      <el-button v-if="this.showDashboardBool && !this.showProjectTree && !this.showProjectReachout" round type="primary" v-on:click="createProject()"
         >Create Project</el-button
       >
       <CreateProjectModal v-on:close="closeModal()" />
@@ -19,11 +19,10 @@
         class="project-show"
       >
         <ProjectTable2
-          v-on:check-hold="checkHold($event, memberID)"
           v-on:show-dashboard="showDashboard()"
           v-on:project-tree="showTree()"
           v-on:project-reachout="showReachOut()"
-          v-bind:project="this.projectToDisplay"
+          v-bind:projectID="this.projectID"
         />
       </div>
       <div class="project-show" v-if="this.showProjectTree">
@@ -43,9 +42,6 @@
         <div class="project-list">
           <div v-bind:key="project.id" v-for="project in allProjects">
             <ProjectInfo
-              v-on:mouseover="hover = true"
-              v-on:mouseleave="hover = false"
-              :class="{ mouseOver: hover }"
               v-on:show-project="showProject($event, projectID)"
               v-bind:project="project"
             />
@@ -63,7 +59,6 @@ import ProjectInfo from "./ProjectInfo.vue";
 import ProjectTable2 from "./ProjectTable2.vue";
 import ProjectTree from "./ProjectTree.vue";
 import ProjectReachOut from "./ProjectReachout.vue";
-// import AddTeamMemberModal from "./AddTeamMemberModal.vue";
 import { mapGetters } from "vuex";
 
 export default {
@@ -80,13 +75,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["allProjects", "projectDash"]),
+    ...mapGetters(["allProjects"]),
     projectToDisplay() {
-      // console.log(this.projectID)
+      console.log("here",this.allProjects)
       return this.allProjects.filter(
         project => project.id == this.projectID
       )[0];
     }
+    //i need to keep doing this function because the data passed from props is not reactive..
   },
   components: {
     CreateProjectModal,
@@ -111,7 +107,6 @@ export default {
     },
     showProject(projectIDToShow) {
       this.projectID = projectIDToShow;
-      // this.projectToDisplay = this.allProjects.filter(project => project.id == projectIDToShow)[0]
       this.showDashboardBool = !this.showDashboardBool;
     },
     showReachOut() {
@@ -133,9 +128,9 @@ export default {
   align-items: center;
 }
 .top {
-  width: 97%;
+  width: 98%;
 }
 .main {
-  width: 97%;
+  width: 98%;
 }
 </style>

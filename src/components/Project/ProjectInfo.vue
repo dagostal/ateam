@@ -2,17 +2,17 @@
   <div class="project" v-on:click="$emit('show-project', project.id)">
     <p>
       <strong
-        >{{ project.projectClient }} - {{ project.projectName }} //{{
-          project.projectType
+        >{{ project.client }} - {{ project.name }} //{{
+          project.projType
         }}</strong
       >
     </p>
     <p class="color">
       <strong>Prep:</strong>{{ new Date(project.prepDate).toDateString() }} |
       <strong>Shoot:</strong
-      >{{ new Date(project.shootDates.start).toDateString() }} -
-      {{ new Date(project.shootDates.end).toDateString() }}|
-      <strong>Wrap:</strong>{{ new Date(project.wrapeDate).toDateString() }}
+      >{{ new Date(project.shootDate[0]).toDateString() }} -
+      {{ new Date(project.shootDate[1]).toDateString() }}|
+      <strong>Wrap:</strong>{{ new Date(project.wrapDate).toDateString() }}
     </p>
   </div>
 </template>
@@ -21,7 +21,10 @@
 export default {
   name: "ProjectInfo",
   props: ["project"],
-  methods: {}
+  methods: {},
+  created(){
+    console.log("project info created")
+  }
 };
 </script>
 

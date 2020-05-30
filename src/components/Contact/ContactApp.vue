@@ -133,7 +133,6 @@ export default {
   mounted() {},
   data() {
     return {
-      tableData: [],
       editingContact: {}
     };
   },

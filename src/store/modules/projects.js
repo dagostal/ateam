@@ -5,7 +5,9 @@ const state = {
 };
 
 const getters = {
-  allProjects: state => state.allProjects
+  allProjects: state => {
+      return state.allProjects
+    }
 };
 
 const actions = {
@@ -20,7 +22,7 @@ const actions = {
       "https://infinite-thicket-90693.herokuapp.com/newProject",
       { newProj: newProj }
     );
-    commit("newProj", response.data.allProjects);
+    commit("newProj", response.data.newProject);
   },
   async addMemberToProject({ commit }, updateInfo) {
     const response = await axios.post(
@@ -28,13 +30,6 @@ const actions = {
       { updateInfo: updateInfo }
     );
     commit("addNewMember", response.data.allProjects);
-  },
-  async addMemberToHold({ commit }, updateInfo) {
-    const response = await axios.post(
-      "https://infinite-thicket-90693.herokuapp.com/memberToHold",
-      { updateInfo: updateInfo }
-    );
-    commit("addMemberToHoldCommit", response.data.allProjects);
   },
   async addMemberToReachOut({ commit }, updateInfo) {
     const response = await axios.post(
@@ -45,9 +40,12 @@ const actions = {
   }
 };
 
+
 const mutations = {
   setProjects: (state, allProjs) => (state.allProjects = allProjs),
-  newProj: (state, newProjs) => (state.allProjects = newProjs),
+  newProj (state, newProj) {
+    state.allProjects.push(newProj)
+  },
   addNewMember: (state, allProjs) => (state.allProjects = allProjs),
   addMemberToHoldCommit: (state, allProjs) => (state.allProjects = allProjs),
   addMemberToReachOutCommit: (state, allProjs) => (state.allProjects = allProjs)
