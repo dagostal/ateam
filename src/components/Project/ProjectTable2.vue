@@ -140,12 +140,12 @@ export default {
     ...mapGetters(["allProjects"]),
     memberData() {
       return this.allProjects.filter(
-        project => project.id == this.projectID
+        project => project._id == this.projectID
       )[0].roles;
     },
     project() {
       return this.allProjects.filter(
-        project => project.id == this.projectID
+        project => project._id == this.projectID
       )[0]
     }
   }

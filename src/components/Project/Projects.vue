@@ -42,7 +42,7 @@
         <div class="project-list">
           <div v-bind:key="project.id" v-for="project in allProjects">
             <ProjectInfo
-              v-on:show-project="showProject($event, projectID)"
+              v-on:show-project="showProject(project._id)"
               v-bind:project="project"
             />
           </div>
@@ -77,7 +77,6 @@ export default {
   computed: {
     ...mapGetters(["allProjects"]),
     projectToDisplay() {
-      console.log("here",this.allProjects)
       return this.allProjects.filter(
         project => project.id == this.projectID
       )[0];

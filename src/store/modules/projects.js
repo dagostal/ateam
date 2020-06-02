@@ -36,7 +36,7 @@ const actions = {
       "https://infinite-thicket-90693.herokuapp.com/memberToReachOut",
       { updateInfo: updateInfo }
     );
-    commit("addMemberToReachOutCommit", response.data.allProjects);
+    commit("addMemberToReachOutCommit", response.data.update);
   }
 };
 
@@ -47,8 +47,13 @@ const mutations = {
     state.allProjects.push(newProj)
   },
   addNewMember: (state, allProjs) => (state.allProjects = allProjs),
-  addMemberToHoldCommit: (state, allProjs) => (state.allProjects = allProjs),
-  addMemberToReachOutCommit: (state, allProjs) => (state.allProjects = allProjs)
+  addMemberToReachOutCommit(state, newProj) {
+    
+
+    console.log(newProj)
+    //
+    //
+  }
 };
 
 export default {

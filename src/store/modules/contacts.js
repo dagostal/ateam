@@ -9,8 +9,7 @@ const getters = {
   allContacts: state => state.allContacts
 };
 
-// need to check if these reqs are successful..
-
+// need to check if these requests are successful..
 const actions = {
   async fetchContacts({ commit }) {
     const response = await axios.get(
@@ -23,15 +22,14 @@ const actions = {
       "https://infinite-thicket-90693.herokuapp.com/newContact",
       { newContact: newContact }
     );
-    commit("newContact", response.data.allContacts);
+    commit("newContact", response.data.newContact);
   },
   async deleteContact({ commit }, contactID) {
     const response = await axios.post(
       "https://infinite-thicket-90693.herokuapp.com/removeContact",
       { contactID: contactID }
     );
-    console.log(response);
-    commit("deleteContact", contactID);
+    commit("deleteContact", response.data);
   },
   async sortContacts({ commit }) {
     commit("sortContacts");
@@ -40,11 +38,11 @@ const actions = {
 
 const mutations = {
   setContacts: (state, allContacts) => (state.allContacts = allContacts),
-  newContact: (state, newContactList) => (state.allContacts = newContactList),
-  deleteContact: (state, contactID) =>
-    (state.allContacts = state.allContacts.filter(
-      contact => contact.id !== contactID
-    )),
+  newContact(state, newContact) {
+    state.allContacts.push(newContact)
+  },
+  deleteContact: (state, contacts) =>
+    (state.allContacts = contacts ),
   sortContacts: state => {
     if (state.sorted) {
       state.sorted = false;

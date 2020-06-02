@@ -58,29 +58,29 @@
             <el-table-column
               prop="role"
               label="Role"
-              width="110"
+              width="100"
               sortable
             ></el-table-column>
             <el-table-column
               prop="name"
               label="Name"
               sortable
-              width="110"
+              width="150"
             ></el-table-column>
             <el-table-column
               prop="email"
               label="Email"
-              width="230"
+              width="180"
             ></el-table-column>
             <el-table-column
               prop="phoneNumber"
               label="Number"
-              width="200"
+              width="110"
             ></el-table-column>
             <el-table-column
               prop="address"
               label="Address"
-              width="100"
+              width="120"
             ></el-table-column>
             <el-table-column
               prop="priority"
